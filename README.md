@@ -1,14 +1,15 @@
 # VLSI-LAB-EXP-5
 SIMULATION AND IMPLEMENTATION OF FINITE STATE MACHINE
+Date:
 
 AIM: To simulate and synthesis finite state machine using Xilinx ISE.
 
-**APPARATUS REQUIRED: **
+APPARATUS REQUIRED: 
 
 Xilinx 14.7 
 Spartan6 FPGA
 
-**PROCEDURE: **
+PROCEDURE:
 STEP:1 Start the Xilinx navigator, Select and Name the New project.
 STEP:2 Select the device family, device, package and speed. 
 STEP:3 Select new source in the New Project and select Verilog Module as the Source type. 
@@ -28,14 +29,47 @@ Logic Diagram :
 
 
 VERILOG CODE:
-
-----Type Verilog Code
+```
+module fsm(clk, rst, x, z);
+input clk, rst, x;
+output z;
+reg [2:1] present_state, NEXT_STATE;
+parameter S0=2'b00, S1=2'b01, S2=2'b10, S3=2'b11;
+always@(x,present_state)
+case(present_state)
+S0: if(x)
+NEXT_STATE=S1;
+else
+NEXT_STATE=S0;
+S1: if(x)
+NEXT_STATE=S1;
+else
+NEXT_STATE=S2;
+S2: if(x)
+NEXT_STATE=S3;
+else
+NEXT_STATE=S0;
+S3: if(x)
+NEXT_STATE=S1;
+else
+NEXT_STATE=S2;
+endcase
+always@(negedge rst, posedge clk)
+if(rst)
+present_state<=S0;
+else
+present_state<=NEXT_STATE;
+assign z=(present_state==S3);
+endmodule
+```
 
 OUTPUT:
 
------Place a Waveform Generated from Xilinx ISE------------
+![WhatsApp Image 2024-05-14 at 11 23 25_3c03abe2](https://github.com/spreethigithub12/VLSI-LAB-EXP-5/assets/169068043/4f9ad1dd-f00e-48f3-8437-a6ce25e7d9e7)
+
 
 RESULT:
+Thus the simulation and synthesis of finite state machine [FSM] using Xilinx ISE is done successfully.
 
 
 
